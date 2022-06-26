@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 
+import {username} from './credentials';
+import {Password} from './credentials';
+var tcatusername = username();
+var password = Password();
+
 test('test', async ({ page }) => {
 
   // Go to https://int.tcat.app/
@@ -12,13 +17,13 @@ test('test', async ({ page }) => {
   await page.locator('[placeholder="Email"]').click();
 
   // Fill [placeholder="Email"]
-  await page.locator('[placeholder="Email"]').fill('admin.abc@abcorp.com');
+  await page.locator('[placeholder="Email"]').fill(tcatusername);
 
   // Press Tab
   await page.locator('[placeholder="Email"]').press('Tab');
 
   // Fill [placeholder="Password"]
-  await page.locator('[placeholder="Password"]').fill('test');
+  await page.locator('[placeholder="Password"]').fill(password);
 
   // Click button:has-text("Login")
   await Promise.all([

@@ -1,9 +1,11 @@
 import { test, expect } from '@playwright/test';
 import {username} from './credentials';
 import {password} from './credentials';
+import {requestvalues} from './inputvalues';
 import * as fs from 'fs';
 var tcatusername = username();
 var tcatpassword = password();
+const values = requestvalues();
 
 test('test', async ({ page }) => {
 
@@ -58,32 +60,23 @@ test('test', async ({ page }) => {
   // Click [placeholder="Origin"]
   await page.locator('[placeholder="Origin"]').click();
   // Fill [placeholder="Origin"]
-  await page.locator('[placeholder="Origin"]').fill('TRV');
+  await page.locator('[placeholder="Origin"]').fill(values[0]);
   // Click text=TRV
   // await page.waitForTimeout(2500);
   // await page.locator('text=TRV').click();
   await page.locator('label:has-text("Destination")').click();
   // Fill [placeholder="Destination"]
-  await page.locator('[placeholder="Destination"]').fill('BOM');
-  // Click text=BOMChhatrapati Shivaji International Airport, Mumbai (Bombay) >> span >> nth=0
-  //await page.locator('text=BOMChhatrapati Shivaji International Airport, Mumbai (Bombay) >> span').first().click();
-  // Click [placeholder="Departure Date"]
-  await page.locator('text=Departure DateReturn Date >> i').first().click();
-  // Click li:has-text("22")
+  await page.locator('[placeholder="Destination"]').fill(values[1]);
 
-//-----------------------------------------------------------------------------------------------------
+  // Press Tab
+  await page.locator('[placeholder="Destination"]').press('Tab');
 
-  // Click text=Jul 2022SuMoTuWeThFrSa 26 27 28 29 30 01 02 03 04 05 06 07 08 09 10 11 12 13 14  >> i >> nth=3
-  //await page.locator('text=Jul 2022SuMoTuWeThFrSa 26 27 28 29 30 01 02 03 04 05 06 07 08 09 10 11 12 13 14  >> i').nth(3).click();
-  // Click text=Aug 2022SuMoTuWeThFrSa 31 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18  >> i >> nth=3
-  //await page.locator('text=Aug 2022SuMoTuWeThFrSa 31 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18  >> i').nth(3).click();
+  // Fill [placeholder="Departure Date"]
+  await page.locator('[placeholder="Departure Date"]').fill(values[2]);
 
+  // Press Tab
+  await page.locator('[placeholder="Departure Date"]').press('Tab');
 
-//-----------------------------------------------------------------------------------------------------
-
-
-  // Click text=29 >> nth=1
-  await page.locator('text=01').nth(1).click();
   // Click text=Add Flight
   await page.locator('text=Add Flight').click();
 
@@ -102,40 +95,30 @@ await page.locator('text=Location of stay').click();
 // Fill [placeholder="Location of stay"]
 //await page.locator('[placeholder="Location of stay"]').fill('Bombay');
 
-await page.type('[placeholder="Location of stay"]', 'Bombay');
+await page.type('[placeholder="Location of stay"]', values[3]);
+
+let autofillname = values[4];
 
 // Click li:has-text("Bombay BeachCA, USA")
-await page.locator('li:has-text("Bombay BeachCA, USA")').click();
-
+await page.locator(`li:has-text('${autofillname}')`).click();
 
 // Click [placeholder="Checkin"]
 await page.locator('[placeholder="Checkin"]').click();
 
+// Fill [placeholder="Checkin"]
+await page.locator('[placeholder="Checkin"]').fill(values[5]);
 
-// Click text=CheckinCheckout >> i >> nth=0
-await page.locator('text=CheckinCheckout >> i').first().click();
+// Press Tab
+await page.locator('[placeholder="Checkin"]').press('Tab');
 
+// Fill [placeholder="Checkout"]
+await page.locator('[placeholder="Checkout"]').fill(values[6]);
 
-// Click text=30 >> nth=1
-await page.locator('text=01').nth(1).click();
+// Press Tab
+await page.locator('[placeholder="Checkout"]').press('Tab');
 
-
-// Click text=Done
-await page.locator('text=Done').click();
-
-
-// Click text=CheckinCheckout >> i >> nth=1
-await page.locator('text=CheckinCheckout >> i').nth(1).click();
-
-
- // Click li:has-text("02") >> nth=0
- await page.locator('li:has-text("02")').first().click();
-await page.waitForTimeout(2500);
-
-
-// Click text=Done
-await page.locator('text=Done').click();
-
+// Press Tab
+await page.locator('[placeholder="Remarks"]').press('Tab');
 
 // Click text=Add Hotel
 await page.locator('text=Add Hotel').click();
@@ -171,7 +154,7 @@ await page.locator('text=Add Hotel').click();
     await page.locator('label:has-text("Traveller")').click();
 
     // Fill [placeholder="Traveller"]
-    await page.locator('[placeholder="Traveller"]').fill('Ajay Shankar');
+    await page.locator('[placeholder="Traveller"]').fill(values[7]);
 
     // Click button:has-text("Search")
     await page.locator('button:has-text("Search")').click();

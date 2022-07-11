@@ -1,6 +1,11 @@
 import { test, expect } from '@playwright/test';
 import * as fs from 'fs';
 import { stringify } from 'querystring';
+import {agentcred} from './credentials';
+import {flightquotevalues} from './inputvalues';
+
+const inputcred = agentcred();
+const values = flightquotevalues();
 
 var quoteid='';
 fs.readFile('quoteid.txt', 'utf8', function(err, data) {
@@ -20,13 +25,13 @@ test('test', async ({ page }) => {
   await page.locator('text=Email').click();
 
   // Fill [placeholder="Email"]
-  await page.locator('[placeholder="Email"]').fill('catalyca.agent@catalyca.com');
+  await page.locator('[placeholder="Email"]').fill(inputcred[0]);
 
   // Press Tab
   await page.locator('[placeholder="Email"]').press('Tab');
 
   // Fill [placeholder="Password"]
-  await page.locator('[placeholder="Password"]').fill('test');
+  await page.locator('[placeholder="Password"]').fill(inputcred[1]);
 
   // Press Enter
   await Promise.all([
@@ -56,7 +61,7 @@ test('test', async ({ page }) => {
   await page.locator('text=AI/608/12DEC or AI/608/12DEC2021').click();
 
   // Fill [placeholder="AI\/608\/12DEC or AI\/608\/12DEC2021"]
-  await page.type('[placeholder="AI\\/608\\/12DEC or AI\\/608\\/12DEC2021"]','6E/5301/01AUG2022');
+  await page.type('[placeholder="AI\\/608\\/12DEC or AI\\/608\\/12DEC2021"]',values[0]);
 
   // Click text=Search
   await page.waitForTimeout(2500);
@@ -79,7 +84,7 @@ await page.locator('text=6E 5301 | 01 Aug TRV - BOM >> i').click();
 // Click label:has-text("Fare")
 await page.locator('label:has-text("Fare")').click();
 // Fill [placeholder="Fare"]
-await page.locator('[placeholder="Fare"]').fill('5000');
+await page.locator('[placeholder="Fare"]').fill(values[1]);
 // Press Tab
 await page.locator('[placeholder="Fare"]').press('Tab');
 // Press Tab

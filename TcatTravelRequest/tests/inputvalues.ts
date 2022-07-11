@@ -10,3 +10,18 @@ export function requestvalues(){
     inpvals[7]="Ajay Shankar";                          //Traveller Name
     return(inpvals)
 }
+
+export function flightquotevalues(){
+    const inpvals : string[] = [];
+    inpvals[0]="6E/5301/01AUG2022";                      //Flight Code
+    inpvals[1]="5000";                                   //Fare
+    return(inpvals)
+}
+
+export function hotelquotevalues(){
+    const inpvals : string[] = [];
+    inpvals[0]="mumbai hotel";                                                                                  //Hotel Name
+    inpvals[1]="Hotel Sahara StarNehru Road, opp. Domestic Airport, Navpada, Vile Parle East, Vi";              //Hotel Autofill data
+    inpvals[2]="5000";                                                                                          //Hotel Fare
+    return(inpvals)
+}

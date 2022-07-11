@@ -1,4 +1,10 @@
 import { test, expect } from '@playwright/test';
+import {agentcred} from './credentials';
+import {hotelquotevalues} from './inputvalues';
+
+
+const inputcred = agentcred();
+const values = hotelquotevalues();
 
 test('test', async ({ page }) => {
 
@@ -9,13 +15,13 @@ test('test', async ({ page }) => {
   await page.locator('text=Email').click();
 
   // Fill [placeholder="Email"]
-  await page.locator('[placeholder="Email"]').fill('catalyca.agent@catalyca.com');
+  await page.locator('[placeholder="Email"]').fill(inputcred[0]);
 
   // Press Tab
   await page.locator('[placeholder="Email"]').press('Tab');
 
   // Fill [placeholder="Password"]
-  await page.locator('[placeholder="Password"]').fill('test');
+  await page.locator('[placeholder="Password"]').fill(inputcred[1]);
 
   // Press Enter
   await Promise.all([
@@ -41,16 +47,18 @@ test('test', async ({ page }) => {
   await page.locator('text=Search your hotel here...').click();
 
   // Fill [placeholder="Search your hotel here\.\.\."]
-  await page.locator('[placeholder="Search your hotel here\\.\\.\\."]').fill('mumbai hotel');
+  await page.locator('[placeholder="Search your hotel here\\.\\.\\."]').fill(values[0]);
+
+  let autofillname = values[1];
 
   // Click li:has-text("Hotel Sahara StarNehru Road, opp. Domestic Airport, Navpada, Vile Parle East, Vi")
-  await page.locator('li:has-text("Hotel Sahara StarNehru Road, opp. Domestic Airport, Navpada, Vile Parle East, Vi")').click();
+  await page.locator(`li:has-text('${autofillname}')`).click();
 
   // Click text=Total Price
   await page.locator('text=Total Price').click();
 
   // Fill [placeholder="Total Price"]
-  await page.locator('[placeholder="Total Price"]').fill('5000');
+  await page.locator('[placeholder="Total Price"]').fill(values[2]);
 
   // Click text=Submit Quote
   await page.locator('text=Submit Quote').click();

@@ -1,10 +1,8 @@
 import { test, expect } from '@playwright/test';
-import {username} from './credentials';
-import {password} from './credentials';
+import {admincred} from './credentials';
 import {requestvalues} from './inputvalues';
 import * as fs from 'fs';
-var tcatusername = username();
-var tcatpassword = password();
+const inputcred = admincred();
 const values = requestvalues();
 
 test('test', async ({ page }) => {
@@ -16,13 +14,13 @@ test('test', async ({ page }) => {
   await page.locator('[placeholder="Email"]').click();
 
   // Fill [placeholder="Email"]
-  await page.locator('[placeholder="Email"]').fill(tcatusername);
+  await page.locator('[placeholder="Email"]').fill(inputcred[0]);
 
   // Press Tab
   await page.locator('[placeholder="Email"]').press('Tab');
 
   // Fill [placeholder="Password"]
-  await page.locator('[placeholder="Password"]').fill(tcatpassword);
+  await page.locator('[placeholder="Password"]').fill(inputcred[1]);
 
   // Press Enter
   await Promise.all([
@@ -171,7 +169,7 @@ await page.locator('text=Add Hotel').click();
     // applying regex to narrow down on ID
     const regex = /ABCORP\/\d{4}/;
     const found = quoteid.match(regex);
-    console.log(found[0]);
+    //console.log(found[0]);
 
     //quoteid out to text file
     fs.writeFileSync('quoteid.txt', found[0]);
